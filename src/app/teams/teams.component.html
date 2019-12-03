@@ -1,0 +1,37 @@
+<div style="height: 64px; margin-bottom: 16px;"></div>
+<div class="display-4 ml-5 pl-5">
+  Teams
+</div>
+<hr />
+<div *ngIf="teams.length < 1" class="text-center mt-5 w-100">
+  <span class="alert alert-info p-2"
+    >Selected teams will be displayed soon!</span
+  >
+</div>
+<div class="teams mx-auto">
+  <div data-aos="fade-up" class="team-card" *ngFor="let team of teams">
+    <h3 class="h3">{{ team.name | titlecase }}</h3>
+    <hr />
+    <div class="h5">{{ team.project | titlecase }}</div>
+    <div class="font-weight-normal">{{ team.projDesc }}</div>
+    <hr />
+    <div class="team-div" *ngFor="let member of team.members">
+      <div class="member-div">
+        <img
+          *ngIf="!(member.image === ''); else defaultPic"
+          class="pro-pic"
+          src="{{ member.image }}"
+        />
+        <ng-template #defaultPic>
+          <img class="pro-pic" src="assets/images/user-profile.svg" />
+        </ng-template>
+        <span class="font-weight-bold">{{ member.name | titlecase }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="teams.length > 3" class="goto-top">
+  <button mat-fab>
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+</div>

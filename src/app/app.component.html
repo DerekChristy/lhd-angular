@@ -1,21 +1,57 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-toolbar id="nav">
+  <mat-toolbar-row>
+    <img
+      src="assets/images/kh-logo.png"
+      width="100"
+      [routerLink]="['/home']"
+      fragment="home"
+    />
+    <span style="flex: 1 1 auto;"></span>
+
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon class="text-light">menu</mat-icon>
+    </button>
+    <mat-menu #menu>
+      <mat-list>
+        <mat-list-item [routerLink]="['/home']" fragment="home">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <span matLine>Home</span>
+        </mat-list-item>
+        <mat-list-item [routerLink]="['/home']" fragment="about">
+          <mat-icon mat-list-icon>info</mat-icon>
+          <span matLine>About Us</span>
+        </mat-list-item>
+
+        <mat-list-item [routerLink]="['/teams']">
+          <mat-icon mat-list-icon>group_work</mat-icon>
+          <span matLine>Teams</span>
+        </mat-list-item>
+        <a href="http://bit.ly/KH_LHD_BUILD">
+          <mat-list-item>
+            <mat-icon mat-list-icon>receipt</mat-icon>
+            <span matLine>Team Registration</span>
+          </mat-list-item>
+        </a>
+        <mat-list-item [routerLink]="['/home']" fragment="faqs">
+          <mat-icon mat-list-icon>question_answer</mat-icon>
+          <span matLine>FAQs</span>
+        </mat-list-item>
+        <hr />
+        <a
+          href="mailto:ewards@karunya.edu?Subject=Sponsorship%20for%20Hackathon"
+        >
+          <mat-list-item>
+            <mat-icon>card_membership</mat-icon>
+            <span matLine>Sponsor Us</span>
+          </mat-list-item>
+        </a>
+      </mat-list>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
+
+<footer class="p-2 mt-5 w-100 text-center">
+  <span>&copy; KHacks 2019</span>
+</footer>

@@ -1,0 +1,212 @@
+<div style="height: 64px;"></div>
+<div class="container h-100 mt-5">
+  <div class="display-4 mb-4">Team Registration</div>
+  <img
+    style="position: absolute; left: 0; top: 70vh; z-index: -1;"
+    src="assets/images/laptop.png"
+    width="200"
+    height="150"
+  />
+  <form #teamForm="ngForm">
+    <mat-horizontal-stepper
+      [linear]="true"
+      labelPosition="bottom"
+      #stepper
+      class="bg-transparent"
+    >
+      <mat-step [completed]="!(team.name === '')">
+        <ng-template matStepLabel>Fill out your team name</ng-template>
+        <mat-form-field>
+          <input
+            matInput
+            name="teamName"
+            type="text"
+            placeholder="Team Name"
+            [(ngModel)]="team.name"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-raised-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step [completed]="!(team.project === '')">
+        <ng-template matStepLabel>Project Details</ng-template>
+
+        <mat-form-field>
+          <input
+            matInput
+            name="projectTitle"
+            type="text"
+            placeholder="Project Title"
+            [(ngModel)]="team.project"
+            required
+          />
+        </mat-form-field>
+        <br />
+        <mat-form-field class="w-75">
+          <mat-label>Project Description</mat-label>
+          <textarea
+            matInput
+            name="projDesc"
+            [(ngModel)]="team.projDesc"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            required
+          ></textarea>
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button type="button" matStepperPrevious>
+            Back
+          </button>
+          <button mat-raised-button type="button" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Team Members</ng-template>
+        <mat-card class="mb-2 light-tint text-white col-12 col-lg-6">
+          <mat-card-title>Add team members</mat-card-title>
+          <mat-card-content>
+            <input
+              #proPic
+              hidden
+              name="proPic"
+              type="file"
+              accept="image/*"
+              placeholder="Upload Pic"
+              (change)="onFileSelected($event)"
+              required
+            />
+            <button
+              [hidden]="picSelected"
+              class="bg-secondary m-1"
+              type="button"
+              mat-raised-button
+              (click)="proPic.click()"
+            >
+              <img
+                *ngIf="member.image === ''; else uimg"
+                class="pic"
+                src="assets/images/user-profile.svg"
+              />
+              <ng-template #uimg>
+                <img class="pic" src="{{ member.image }}" />
+              </ng-template>
+            </button>
+            <mat-progress-spinner
+              [hidden]="!picSelected"
+              mode="indeterminate"
+              diameter="30"
+              style="display: inline-block;"
+            >
+            </mat-progress-spinner>
+
+            <mat-form-field class="mx-2 w-50">
+              <input
+                matInput
+                name="memberReg"
+                type="text"
+                placeholder="Register Number"
+                [(ngModel)]="member.reg"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field class="mx-2 w-50">
+              <input
+                matInput
+                name="memberName"
+                type="text"
+                placeholder="Name"
+                [(ngModel)]="member.name"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field class="mx-2 w-50">
+              <input
+                matInput
+                name="memberEmail"
+                type="email"
+                placeholder="Email"
+                [(ngModel)]="member.email"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field class="mx-2 w-50">
+              <input
+                matInput
+                name="memberPhone"
+                type="text"
+                placeholder="Phone Number"
+                [(ngModel)]="member.phone"
+                required
+              />
+            </mat-form-field>
+            <button
+              class="icon-hover"
+              mat-icon-button
+              type="button"
+              (click)="addMember()"
+              [hidden]="member.phone === ''"
+            >
+              <mat-icon color="primary" style="font-size: 3rem;"
+                >add_circle</mat-icon
+              >
+            </button>
+            <br />
+            <span class="alert alert-danger" [hidden]="!addMemberError"
+              >Only image is optional!</span
+            >
+          </mat-card-content>
+        </mat-card>
+        <hr />
+        <div class="cards-div">
+          <div
+            class="card mx-2 black-tint"
+            *ngFor="let member of members; index as i"
+          >
+            <mat-card-header>
+              <img
+                *ngIf="!(member.image === ''); else defaultPic"
+                mat-card-avatar
+                src="{{ member.image }}"
+              />
+              <ng-template #defaultPic
+                ><img mat-card-avatar src="assets/images/user-profile.svg"
+              /></ng-template>
+              <mat-card-title>{{ member.name | titlecase }}</mat-card-title>
+              <mat-card-subtitle>Member</mat-card-subtitle>
+              <button
+                class="text-danger"
+                mat-icon-button
+                (click)="removeMember(i)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-card-header>
+          </div>
+        </div>
+        <div>
+          <button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-raised-button (click)="addTeam()">Submit</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+
+  <div [hidden]="!uploadSuccess" class="alert alert-success" role="alert">
+    Cheers! Team details uploaded. Go to
+    <a [routerLink]="['/teams']" mat-flat-button class="text-decoration-none"
+      >Teams</a
+    >
+  </div>
+
+  <div [hidden]="!uploadFailed" class="alert alert-danger" role="alert">
+    Upload failed! Please retry.
+  </div>
+</div>
+<div style="height: 64px;"></div>

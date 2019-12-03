@@ -1,0 +1,26 @@
+a {
+  text-decoration: none;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, #e0e0e0dd 0%, #01baef 100%);
+  box-shadow: 0px 1px 5px #474747;
+  z-index: 1;
+}
+
+mat-list-item {
+  cursor: pointer;
+}
+
+mat-list :hover {
+  background-color: #474747;
+  color: #fff;
+}
+
+footer {
+  background-color: #ffffff70;
+  box-shadow: 0px -1px 5px #474747;
+}
